@@ -4,34 +4,47 @@ using UnityEngine;
 
 public class House : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer houseSprite;
-    [SerializeField] private Transform point;
+    [Header("Amounts")]
+    [SerializeField] private int woodAmount;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
     [SerializeField] private float timeAmount;
 
+    [Header ("Components")]
+    [SerializeField] private GameObject houseCollider;
+    [SerializeField] private SpriteRenderer houseSprite;
+    [SerializeField] private Transform point;
+
+
 
     private bool detectingPlayer;
-    private Player_Itens player;
+    private Player player;
     private PlayerAnim playerAnim;
+    private Player_Itens playerItens;
+
     private float timeCount;
     private bool isBegining;
 
-    void start()
+    //Start is called bvefore the first frame update
+    void Start()
     {
-        player = FindObjectOfType<Player_Itens>();
+        player = FindObjectOfType<Player>();
         playerAnim = player.GetComponent<PlayerAnim>();
+        playerItens = player.GetComponent<Player_Itens>();
     }
 
-
+    // Update is called once per frame
     void Update()
     {
-        if(detectingPlayer && Input.GetKeyDown(KeyCode.E))
+        if(detectingPlayer && Input.GetKeyDown(KeyCode.E) && playerItens.totalWood >= woodAmount)
         {
+            //construção da casa se inicia
             isBegining = true;
             playerAnim.OnHammeringStarted();
             houseSprite.color = startColor;
             player.transform.position = point.position;
+            player.isPaused = true;
+            playerItens.totalWood -= woodAmount;
         }
 
         if(isBegining)
@@ -41,14 +54,16 @@ public class House : MonoBehaviour
             if(timeCount >= timeAmount)
             {
                 //casa finalizada
-            playerAnim.OnHammeringEnded();
-            houseSprite.color = endColor;
+                playerAnim.OnHammeringEnded();
+                houseSprite.color = endColor;
+                player.isPaused = false;
+                houseCollider.SetActive(true);
             }
         }
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
@@ -64,4 +79,3 @@ public class House : MonoBehaviour
         }
     }
 }
-

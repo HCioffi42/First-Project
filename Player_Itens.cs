@@ -22,7 +22,6 @@ public class Player_Itens : MonoBehaviour
         {
             currentWater += water;
         }
-        
     }
     
 }
