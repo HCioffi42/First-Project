@@ -21,5 +21,7 @@ public class Skeleton : MonoBehaviour
     void Update()
     {
         agent.SetDestination(player.transform.position);
+
+        
     }
 }
