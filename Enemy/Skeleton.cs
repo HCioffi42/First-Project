@@ -18,6 +18,7 @@ public class Skeleton : MonoBehaviour
     [SerializeField] private AnimationControl animControl;
 
     private Player player;  // Reference to the player object
+    private Player player;  // Reference to the player object
 
     void Start()
     {
