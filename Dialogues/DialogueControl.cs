@@ -38,7 +38,6 @@ public class DialogueControl : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -60,7 +59,7 @@ public class DialogueControl : MonoBehaviour
         }
     }
 
-    //pular para a próxima fala
+    //Skip to next line
     public void NextSentence()
     {
         if(speechText.text == sentences[index])
@@ -71,7 +70,7 @@ public class DialogueControl : MonoBehaviour
                 speechText.text = "";
                 StartCoroutine(TypeSentence());
             }
-            else //acabam as frases
+            else //End of lines
             {
                 speechText.text = "";
                 index = 0;
@@ -82,7 +81,7 @@ public class DialogueControl : MonoBehaviour
         }
     }
 
-    //chamar a próxima fala
+    //Call next line
     public void Speech(string[] txt)
     {
         if(!isShowing)

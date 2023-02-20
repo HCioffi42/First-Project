@@ -36,8 +36,8 @@ public class NPC : MonoBehaviour
         {
             if(index < paths.Count - 1)
             {
-                //index++;
-                index = Random.Range(0, paths.Count - 1);
+                index++;
+                //index = Random.Range(0, paths.Count - 1);
             }
             else
             {

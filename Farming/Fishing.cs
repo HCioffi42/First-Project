@@ -36,7 +36,6 @@ public class Fishing : MonoBehaviour
         {
             //pegou peixe
             Instantiate(fishPrefab, player.transform.position + new Vector3(Random.Range(-2f, -1f), 0f, 0f), Quaternion.identity);
-            Debug.Log("Pescou!");
         }
         else
         {

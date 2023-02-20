@@ -9,7 +9,6 @@ public class Tree : MonoBehaviour
 
     [SerializeField] private GameObject woodPrefab;
     [SerializeField] private int totalWood;
-
     [SerializeField] private ParticleSystem leafs;
 
     private bool isCut;

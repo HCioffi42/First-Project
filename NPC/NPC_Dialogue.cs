@@ -18,7 +18,6 @@ public class NPC_Dialogue : MonoBehaviour
         GetNPCInfo();
     }
 
-    //é chamado a acada frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.E) && playerHit)

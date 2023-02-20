@@ -60,3 +60,4 @@ public class HUD_Controler : MonoBehaviour
         }
     }
 }
+

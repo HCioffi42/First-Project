@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    [SerializeField] private bool detectingPlayer; //boolean to detect if PLayer is in range of the selected area
-    [SerializeField] private int waterValue; //amount of water PLayer gets when interacting with the water source
+    [SerializeField] private bool detectingPlayer; //boolean to detect if Player is in range of the selected area
+    [SerializeField] private int waterValue; //amount of water Player gets when interacting with the water source
 
     private Player_Itens player;
 
