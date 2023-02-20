@@ -7,8 +7,6 @@ public class House : MonoBehaviour
     // Amount of wood required to build the house
     [Header("Amounts")]
     [SerializeField] private int woodAmount;
-
-    // Start and end color of the house's Sprite
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
 
