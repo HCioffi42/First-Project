@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class PlayerAnim : MonoBehaviour
 {
+    [Header("Attack Settins")]
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float radius;
+    [SerializeField] private LayerMask enemyLayer;
+
     private Player player;
     private Animator anim;
     private Fishing cast;
     
+    private bool isHitting;
+    private float recoveryTime = 1f;
+    private float timeCount;
 
     void Start()
     {
@@ -22,6 +30,17 @@ public class PlayerAnim : MonoBehaviour
     {
         OnMove();
         OnRun();
+
+        if(isHitting)
+        {
+            timeCount += Time.deltaTime;
+
+            if(timeCount >= recoveryTime)
+            {
+                isHitting = false;
+                timeCount = 0f;
+            }
+        }
     }
 
     #region Movement
@@ -80,8 +99,29 @@ public class PlayerAnim : MonoBehaviour
     }
     #endregion
 
+    #region Attack
 
-//é chamado quando press E no lago
+    public void OnAttack()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, radius, enemyLayer);
+
+        if(hit != null)
+        {
+            //attack hit
+            hit.GetComponentInChildren<AnimationControl>().OnHit();
+            Debug.Log("enemy hit");
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(attackPoint.position, radius);
+    }
+
+    #endregion
+
+
+    //é chamado quando press E no lago
     public void OnCastingStart()
     {
         anim.SetTrigger("isCasting");
@@ -102,5 +142,14 @@ public class PlayerAnim : MonoBehaviour
     public void OnHammeringEnded()
     {
         anim.SetBool("Hammering", false);
+    }
+
+    public void OnHit()
+    {
+        if(!isHitting)
+        {
+            anim.SetTrigger("Hit");
+            isHitting = true;
+        }
     }
 }

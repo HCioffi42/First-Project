@@ -125,6 +125,10 @@ public class Player : MonoBehaviour
                 isWatering = false;
                 speed = initialSpeed;
             }
+            if(playerItens.currentWater < 0)
+            {
+                playerItens.currentWater = 0;
+            }
         }
         
         if(isWatering)

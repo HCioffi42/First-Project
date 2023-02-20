@@ -71,7 +71,7 @@ public class DialogueControl : MonoBehaviour
                 speechText.text = "";
                 StartCoroutine(TypeSentence());
             }
-            else //acaram as frases
+            else //acabam as frases
             {
                 speechText.text = "";
                 index = 0;

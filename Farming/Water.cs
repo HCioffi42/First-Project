@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    [SerializeField] private bool detectingPlayer;
-    [SerializeField] private int waterValue;
+    [SerializeField] private bool detectingPlayer; //boolean to detect if PLayer is in range of the selected area
+    [SerializeField] private int waterValue; //amount of water PLayer gets when interacting with the water source
 
     private Player_Itens player;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player_Itens>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(detectingPlayer && Input.GetKeyDown(KeyCode.E))

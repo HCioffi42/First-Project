@@ -11,17 +11,16 @@ public class Fishing : MonoBehaviour
     private PlayerAnim playerAnim;
 
     private bool detectingPlayer;
-    // Start is called before the first frame update
+
     void Start()
     {
         player = FindObjectOfType<Player_Itens>();
         playerAnim = player.GetComponent<PlayerAnim>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Criar um botão de ação especifico para animação e ação de pesca junto com a de coelta de água (Press E: coleta água/Press LeftClick: pesca)
+        // CRIAR UM BOTÃO DE AÇÃO ESPECIFICO PARA ANIMAÇÃO E AÇÃO DE PESCA JUNTO COM A DE COELTA DE ÁGUA (PRESS E: COLETA ÁGUA/PRESS LEFTCLICK: PESCA)
         if(detectingPlayer && Input.GetKeyDown(KeyCode.E))
         {
             playerAnim.OnCastingStart();
@@ -30,7 +29,7 @@ public class Fishing : MonoBehaviour
 
     public void OnCasting()
     {
-        //criar Stamina para número de vezes para pescar
+        //CRIAR STAMINA PARA NÚMERO DE VEZES PARA PESCAR
         int randomValue = Random.Range(1, 100);
 
         if(randomValue <= percentage)

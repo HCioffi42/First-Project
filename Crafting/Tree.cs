@@ -23,7 +23,6 @@ public class Tree : MonoBehaviour
 
         if(treeHealth <= 0)
         {
-            //Corta a árvore e instancia os drops(Wood)
             for (int i = 0; i < totalWood; i++)
             {
                 Instantiate(woodPrefab, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f,1f), 0f), transform.rotation);
