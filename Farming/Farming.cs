@@ -4,29 +4,33 @@ using UnityEngine;
 
 public class Farming : MonoBehaviour
 {
-    // These serializable fields are used to reference components and set settings in the Unity Editor
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip holeSFX;
+    [SerializeField] private AudioClip CarrotSFX;
+
     [Header("Components")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite hole;
     [SerializeField] private Sprite carrot;
 
     [Header("Settings")]
-    [SerializeField] private int digAmount; //Life of the hole
-    [SerializeField] private float waterAmount; //Total water for carrot
+    [SerializeField] private int digAmount;
+    [SerializeField] private float waterAmount;
 
-    [SerializeField] private bool detecting; // Used to determine whether the player is detecting water
+    [SerializeField] private bool detecting;
+    private bool isPlayer;
 
-    // Private fields for tracking variables related to the hole and carrot
     private int initialDigAmount;
     private float currentWater;
     private bool dugHole;
-
-    // Reference to player items object
-    Player_Itens playerItens;
+    private bool soundCarrot;
+    private int carrotValue;
+    private Player_Itens player;
 
     private void Start()
     {
-        playerItens = FindObjectOfType<Player_Itens>();
+        player = FindObjectOfType<Player_Itens>();
         initialDigAmount = digAmount;
     }
 
@@ -41,17 +45,20 @@ public class Farming : MonoBehaviour
                 currentWater += 0.01f;
             }
 
-            // If the current water is greater than or equal to the required water, display carrot and allow player to harvest
-            if(currentWater >= waterAmount)
+            if(currentWater >= waterAmount && !soundCarrot)
             {
+                audioSource.PlayOneShot(holeSFX);
                 spriteRenderer.sprite = carrot;
-
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    spriteRenderer.sprite = hole;
-                    playerItens.totalCarrots++;
-                    currentWater = 0f;
-                }
+                soundCarrot = true;
+            }
+            if(Input.GetKeyDown(KeyCode.E) && soundCarrot && isPlayer && player.totalCarrots < player.carrotsLimit)
+            {
+                player.CarrotsLimit(carrotValue);
+                audioSource.PlayOneShot(CarrotSFX);
+                spriteRenderer.sprite = hole;
+                player.totalCarrots++;
+                currentWater = 0f;
+                soundCarrot = false;
             }
         }
     }
@@ -84,6 +91,10 @@ public class Farming : MonoBehaviour
         {
             detecting = true;
         }
+        if(collision.CompareTag("Player"))
+        {
+            isPlayer = true;
+        }
     }
 
     // This method is called when a trigger collider is exited
@@ -93,6 +104,10 @@ public class Farming : MonoBehaviour
         if(collision.CompareTag("Water"))
         {
             detecting = false;
+        }
+        if(collision.CompareTag("Player"))
+        {
+            isPlayer = false;
         }
     }
 }

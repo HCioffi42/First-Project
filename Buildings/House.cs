@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This class represents a house game object that the player can build and enter.
 public class House : MonoBehaviour
 {
     // Amount of wood required to build the house
     [Header("Amounts")]
     [SerializeField] private int woodAmount;
+
+    // Starting and ending colors of the house sprite during construction
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
 
